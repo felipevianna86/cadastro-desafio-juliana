@@ -14,12 +14,13 @@ public class EnderecoService {
 
     public void cadastrarEndereco(Enderecos enderecos) {
         validarEndereco(enderecos);
+        EntityManager enti = HibernateUtil.getEntityManager();
         try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(enderecos);
-            entityManager.getTransaction().commit();
+            enti.getTransaction().begin();
+            enti.persist(enderecos);
+            enti.getTransaction().commit();
         }catch(PersistenceException e) {
-            entityManager.getTransaction().rollback();
+            enti.getTransaction().rollback();
             throw new RuntimeException("Erro ao cadastrar endereço");
         }
     }
@@ -28,7 +29,7 @@ public class EnderecoService {
                 .orElseThrow(()-> new IllegalArgumentException("O Estado do endereço é obrigatorio"));
         Optional.ofNullable(enderecos.getCidade()).filter(cidade -> ! cidade.isEmpty())
                 .orElseThrow(()-> new IllegalArgumentException("A cidade do endereço é obrigatória"));
-        Optional.ofNullable(enderecos.getCep()).filter(cep -> ! cep.isEmpty())
+        Optional.ofNullable(enderecos.getCep()).filter(cep -> cep != cep)
                 .orElseThrow(()-> new IllegalArgumentException("O cep doo endereço é obrigatório"));
         Optional.ofNullable(enderecos.getLogradouro()).filter(logradouro -> ! logradouro.isEmpty())
                 .orElseThrow(()-> new IllegalArgumentException("O logradouro do endereço é obrigatório"));

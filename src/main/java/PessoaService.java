@@ -6,23 +6,20 @@ import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 
 import jakarta.persistence.PersistenceException;
-import net.bytebuddy.asm.Advice.Enter;
-
-import static java.util.Optional.*;
 
 public class PessoaService {
     @PersistenceContext
-
     private EntityManager entityManager;
 
     public void cadastrarPessoa(Pessoa pessoa) {
         validarPessoa(pessoa);
+        EntityManager enti = HibernateUtil.getEntityManager();
         try {
-            entityManager.getTransaction().begin();
-            entityManager.persist(pessoa);
-            entityManager.getTransaction().commit();
+            enti.getTransaction().begin();
+            enti.persist(pessoa);
+            enti.getTransaction().commit();
         }catch(PersistenceException e) {
-            entityManager.getTransaction().rollback();
+            enti.getTransaction().rollback();
             throw new RuntimeException("Erro ao cadastrar cpf" + e.getMessage());
         }
     }
@@ -60,7 +57,7 @@ public class PessoaService {
     }
 
 
-    public void excluirPessoa(Long id) {
+    public void deletar(Long id) {
         Pessoa pessoa = buscarPessoa(id);
         try {
             entityManager.getTransaction().begin();

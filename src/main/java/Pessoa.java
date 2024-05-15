@@ -1,6 +1,5 @@
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
@@ -25,7 +24,6 @@ public class Pessoa{
     @Column(name = "CPF", nullable = false, length = 11)
     private Integer cpf;
     private List<Enderecos> enderecos = new ArrayList<Enderecos>();
-
 
     public Long getId() {
         return id;
@@ -80,6 +78,6 @@ public class Pessoa{
         this.cpf = cpf;
 
     }
-
-
+    public Pessoa() {
+    }
 }

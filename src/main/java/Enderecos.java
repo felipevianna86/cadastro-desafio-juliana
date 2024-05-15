@@ -24,7 +24,7 @@ import java.io.Serializable;
 
     @Column(name = "CEP", nullable = false, length = 8)
 
-    private String cep;
+    private Long cep;
 
     @ManyToOne
     @JoinColumn(name= "id_pessoa")
@@ -61,10 +61,10 @@ import java.io.Serializable;
     public void setNumero(Integer numero) {
         this.numero = numero;
     }
-    public String getCep() {
+    public Long getCep() {
         return cep;
     }
-    public void setCep(String cep) {
+    public void setCep(Long cep) {
         this.cep = cep;
     }
     public Pessoa getPessoa() {
@@ -73,7 +73,7 @@ import java.io.Serializable;
     public void setPessoa(Pessoa pessoa) {
         this.pessoa = pessoa;
     }
-    public Enderecos(Long id, String estado, String cidade, String logradouro, Integer numero, String cep, Pessoa pessoa) {
+    public Enderecos(Long id, String estado, String cidade, String logradouro, Integer numero, Long cep, Pessoa pessoa) {
         super();
         this.id = id;
         this.estado = estado;

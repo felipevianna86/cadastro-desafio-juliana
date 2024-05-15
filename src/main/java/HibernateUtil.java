@@ -5,23 +5,22 @@ import javax.persistence.Persistence;
 
 public class HibernateUtil {
 
-    private EntityManagerFactory factory;
-
+    private static EntityManagerFactory entityManagerFactory;
     public HibernateUtil() {
         init();
     }
 
     private void init() {
         try {
-            if(null == factory) {
-                factory = Persistence.createEntityManagerFactory("julianeandrade");
+            if(null == entityManagerFactory) {
+                entityManagerFactory = Persistence.createEntityManagerFactory("julianeandrade");
             }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public EntityManager getEntityManager() {
-        return factory.createEntityManager();
+    public static EntityManager getEntityManager() {
+        return entityManagerFactory.createEntityManager();
     }
 }
